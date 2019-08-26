@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { ApolloProvider } from "react-apollo";
+import React from "react";
+import Apollo from "./services/apollo";
 
 import client from "./services/apollo";
 import TodoList from "./components/TodoList";
 
 const App = () => {
   return (
-    <ApolloProvider client={client}>
+    <Apollo client={client}>
       <TodoList />
-    </ApolloProvider>
+    </Apollo>
   );
 };
 

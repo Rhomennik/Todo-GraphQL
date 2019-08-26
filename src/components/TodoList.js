@@ -1,42 +1,26 @@
-import React, { Component } from 'react';
+import React from "react";
 
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import Loading from "./Loading";
 
-class TodoList extends Component {
-    renderTodoList = () => (
-      <ul>
-        { this.props.todos.allTodoes.map(todo => (
+import { useQuery } from "@apollo/react-hooks";
+import { TodosQuery } from "./todo.queries";
 
-          <li key={todo.id}>{todo.text}</li>
+const TodoList = () => {
+  const { data } = useQuery(TodosQuery);
 
-        )) }
-      </ul>
-    );
+  return (
+    <div>
+      {data.allTodoes === undefined ? (
+        <Loading />
+      ) : (
+        <ul>
+          {data.allTodoes.map(allTodoes => (
+            <li key={allTodoes.id}>{allTodoes.text}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
-
-    render() {
-      const { todos } = this.props;
-      return (
-        <>
-          { todos.loading
-            ? <p>Carregando...</p>
-            : this.renderTodoList() }
-        </>
-      );
-    }
-}
-
-const TodosQuery = gql`
-    query {
-        allTodoes {
-            id
-            text
-        }
-    }
-`;
-
-export default graphql(
-  TodosQuery,
-  { name: 'todos' },
-)(TodoList);
+export default TodoList;
