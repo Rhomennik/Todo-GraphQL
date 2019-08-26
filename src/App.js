@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { ApolloProvider } from 'react-apollo';
+import React, { Component } from "react";
+import { ApolloProvider } from "react-apollo";
 
-import apolloClient from './services/apollo';
-import TodoList from './components/TodoList';
+import client from "./services/apollo";
+import TodoList from "./components/TodoList";
 
-export default class App extends Component {
-  render() {
-    return (
-      <ApolloProvider client={apolloClient}>
-        <TodoList />
-      </ApolloProvider>
-    );
-  }
-}
+const App = () => {
+  return (
+    <ApolloProvider client={client}>
+      <TodoList />
+    </ApolloProvider>
+  );
+};
+
+export default App;
